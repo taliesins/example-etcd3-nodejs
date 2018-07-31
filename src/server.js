@@ -111,6 +111,8 @@ process.on( 'SIGINT', function() {
     if (election){
         election.resign();
         election=null;
+        proclaimationWatcher.cancel();
+        proclaimationWatcher=null;
     };
 
     // some other closing procedures go here
