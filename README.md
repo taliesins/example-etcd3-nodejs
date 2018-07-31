@@ -2,7 +2,7 @@
 
 Demonstrate etcd3 with nodejs (elections)
 
-#Temp hack until elections are merged into nodejs etcd3
+# Temp hack until elections are merged into nodejs etcd3
 Until election support is added you need to use branch version of etcd3
 ```
 git clone https://github.com/taliesins/example-etcd3-nodejs
@@ -17,7 +17,7 @@ cd example-etcd3-nodejs/src
 npm install ../../etcd3
 ```
 
-#Demo 1 - Leader election
+# Demo 1 - Leader election
 
 Leader election is useful when you want to ensure that only want instance running across multiple datacenters, and if that instance crashes one of the other instances will take over. The crashed instance can then be fixed and restarted. An example where a single instance might be used is for a scheduled report generator.
 
