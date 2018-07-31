@@ -16,10 +16,20 @@ npm run -s build:ts
 cd example-etcd3-nodejs/src
 npm install ../../etcd3
 ```
+# Prerequisites
+
+* node.js - https://nodejs.org/en/download/
+* npm
+* etcd3 - https://github.com/coreos/etcd/releases
 
 # Demo 1 - Leader election
 
 Leader election is useful when you want to ensure that only want instance running across multiple datacenters, and if that instance crashes one of the other instances will take over. The crashed instance can then be fixed and restarted. An example where a single instance might be used is for a scheduled report generator.
+
+Get etcd3 running with default ports 
+```
+etcd
+```
 
 Get 2 instances running:
 ```
