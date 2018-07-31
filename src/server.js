@@ -25,7 +25,7 @@ async function GetRoot(req, res){
         res.send(`${HOST}:${PID}:${campaignerName} - Not campaigning`);
     } else {  
         try {
-            var myKey = election.leaderKey;
+            var myKey = election ? election.leaderKey : '';
             var leaderKey = await election.getLeader();
             
             if(myKey == leaderKey){
@@ -44,14 +44,12 @@ async function Campaign(req, res){
 
     if (!election){
         election = new Election(client, campaignName);
-        election.observe()
-        watcher = await client.watch().
         election.on('leader', (leaderKey)=>{
-            var myKey = election.leaderKey;
+            var myKey = election ? election.leaderKey : '';
 
             proclaimationWatcher = client.watch().key(leaderKey).watcher();
             proclaimationWatcher.on('put', (currentValue, previousValue)=>{
-                console.log(`${moment().format()} - ${HOST}:${PID}:${campaignerName} - new proclaimed value ${currentValue.value} and previous proclaimed value ${previousValue ? previousValue.value : '' } `);
+                console.log(`${moment().format()} - ${HOST}:${PID}:${campaignerName} - new proclaimed value ${currentValue ? currentValue.value : ''} and previous proclaimed value ${previousValue ? previousValue.value : '' } `);
             });
 
             console.log(`${moment().format()} - ${HOST}:${PID}:${campaignerName} - the current leader's key is ${leaderKey} and my lease is ${myKey}`);
@@ -77,7 +75,7 @@ async function Proclaim(req, res){
         try {
             var myKey = election.leaderKey;
             var leaderKey = await election.getLeader();
-            var proclamation = uuid.v4();;
+            var proclamation = uuid.v4();
             
             if(myKey == leaderKey){
                 election.proclaim(proclamation);
