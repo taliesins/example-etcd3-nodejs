@@ -22,11 +22,9 @@ async function GetRoot(req, res){
     
     if (!election){
         res.send(`${HOST}:${PID}:${campaignerName} - Not campaigning`);
-    } else {
-        //var election = new Election(client, campaignName);
-        
+    } else {  
         try {
-            var myKey = election.leaderKey;//election.getPrefix() + election.leaseId;
+            var myKey = election.leaderKey;
             var leaderKey = await election.getLeader();
             
             if(myKey == leaderKey){
