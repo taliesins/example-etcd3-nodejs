@@ -1,0 +1,19 @@
+{
+  "name": "example-etcd3-nodejs",
+  "version": "1.0.0",
+  "description": "Demonstrate ectd3 usage with nodejs",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "etcd3": "file:../../etcd3",
+    "express": "^4.16.3",
+    "grpc": "^1.13.1",
+    "moment": "^2.22.2",
+    "uuid": "^3.3.2"
+  }
+}
