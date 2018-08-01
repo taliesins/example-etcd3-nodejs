@@ -20,6 +20,7 @@ npm install ../../etcd3
 
 * node.js - https://nodejs.org/en/download/
 * npm
+* typescript
 * etcd3 - https://github.com/coreos/etcd/releases
 
 # Demo 1 - Leader election
