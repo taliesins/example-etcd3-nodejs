@@ -63,4 +63,12 @@ curl -s http://localhost:9944
 #still trying to win campaign (no longer the winner)
 curl -s http://localhost:9945
 #campaign winner (new winner) 
+
+curl -s http://localhost:9945/proclaim
+#proclaimed value shows up on both nodes in the campaign
+
+curl -s http://localhost:9944/resign
+#resign from campaign, so will no long recieve proclamations 
+curl -s http://localhost:9945/proclaim
+#proclamation only recieved on the one node
 ```

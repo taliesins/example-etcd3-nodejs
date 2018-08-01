@@ -45,14 +45,17 @@ async function Campaign(req, res){
     if (!election){
         election = new Election(client, campaignName);
         election.on('leader', (leaderKey)=>{
-            var myKey = election ? election.leaderKey : '';
+            if (election) {
+                //If there was no election it means we resigned but are still receiving the update
+                var myKey = election.leaderKey;
 
-            proclaimationWatcher = client.watch().key(leaderKey).watcher();
-            proclaimationWatcher.on('put', (currentValue, previousValue)=>{
-                console.log(`${moment().format()} - ${HOST}:${PID}:${campaignerName} - new proclaimed value ${currentValue ? currentValue.value : ''} and previous proclaimed value ${previousValue ? previousValue.value : '' } `);
-            });
+                proclaimationWatcher = client.watch().key(leaderKey).watcher();
+                proclaimationWatcher.on('put', (currentValue, previousValue)=>{
+                    console.log(`${moment().format()} - ${HOST}:${PID}:${campaignerName} - new proclaimed value ${currentValue ? currentValue.value : ''} and previous proclaimed value ${previousValue ? previousValue.value : '' } `);
+                });
 
-            console.log(`${moment().format()} - ${HOST}:${PID}:${campaignerName} - the current leader's key is ${leaderKey} and my lease is ${myKey}`);
+                console.log(`${moment().format()} - ${HOST}:${PID}:${campaignerName} - the current leader's key is ${leaderKey} and my lease is ${myKey}`);
+            }
         });
         election.emit
         election.on('error', (err)=>{
