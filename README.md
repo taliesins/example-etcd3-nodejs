@@ -40,36 +40,44 @@ PORT=9944 npm start
 PORT=9945 npm start
 ```
 
-Lets test:
+Show instances do not belong to any campaign:
 ```
 curl -s http://localhost:9944
 curl -s http://localhost:9945
-#notice that there is no one campaigning
+```
 
+Join both instances to a campaign:
+```
 curl -s http://localhost:9944/campaign
 sleep 1
 curl -s http://localhost:9945/campaign
-#started campaigning
+```
 
-curl -s http://localhost:9944
-#campaign winner 
+Show that one instances has been elected, the other instance is continuing trying to win the campaign:
+```
+curl -s http://localhost:9944 
 curl -s http://localhost:9945
-#still trying to win campaign
+```
 
+Simulate an instance failing and then restarting:
+```
 curl -s http://localhost:9944/resign
 curl -s http://localhost:9944/campaign
-#simulate restart of service
+```
 
+Here we see that the passive instance (9945) has been elected to be the active instance, the second instance (9944) has been restarted and is trying to win the campaign: 
+```
 curl -s http://localhost:9944
-#still trying to win campaign (no longer the winner)
 curl -s http://localhost:9945
-#campaign winner (new winner) 
+```
 
+Leader submits a proclamation to all campaign members:
+```
 curl -s http://localhost:9945/proclaim
-#proclaimed value shows up on both nodes in the campaign
+```
 
+An instance resigns from the campaign, when a leader proclaims, the resigned instance should not recieve it:
+```
 curl -s http://localhost:9944/resign
-#resign from campaign, so will no long recieve proclamations 
 curl -s http://localhost:9945/proclaim
-#proclamation only recieved on the one node
 ```
